@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Design Brief Questionnaire — Kidzink</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=New+Kansas:wght@400;700&display=swap');
+
+  :root{
+    --paper:#F5F2EC;
+    --ink:#404040;
+    --ink-soft:#5B564F;
+    --brick:#e43e2f;
+    --brick-deep:#c53527;
+    --ochre:#C08A28;
+    --sage:#5B6B54;
+    --line:#DDD3C2;
+    --card:#FCFAF6;
+    --label-color:rgba(0,0,0,0.8);
+    --answer-color:rgba(0,0,0,0.5);
+    --meta-value-color:#5c5c60;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Poppins', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:28px 20px 80px;
+  }
+  .brandbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--line);
+    padding-bottom:18px;
+    margin-bottom:28px;
+  }
+  .brandbar .mark{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    font-size:19px;
+    letter-spacing:0.01em;
+  }
+  .brandbar .mark span{
+    font-family:'New Kansas', sans-serif;
+    font-weight:600;
+    color:var(--brick);
+  }
+  .brandbar .meta{
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+
+  .hero{
+    margin-bottom:34px;
+  }
+  .hero h1{
+    font-family:'New Kansas', sans-serif;
+    font-weight:700;
+    font-size:28px;
+    line-height:1.2;
+    margin:0 0 10px;
+    max-width:640px;
+    color:var(--brick);
+  }
+  .hero p{
+    font-size:15px;
+    color:var(--ink-soft);
+    max-width:560px;
+    line-height:1.6;
+    margin:0;
+  }
+
+  .layout{
+    display:grid;
+    grid-template-columns:230px 1fr;
+    gap:36px;
+    align-items:start;
+  }
+  @media (max-width:760px){
+    .layout{ grid-template-columns:1fr; }
+    .rail{ display:none; }
+  }
+
+  .rail{
+    position:sticky;
+    top:24px;
+  }
+  .rail-item{
+    display:flex;
+    gap:12px;
+    padding:10px 0;
+    cursor:pointer;
+    border-bottom:1px solid transparent;
+  }
+  .rail-num{
+    font-family:'Poppins', sans-serif;
+    font-size:13px;
+    color:var(--line);
+    width:18px;
+    flex-shrink:0;
+    padding-top:1px;
+  }
+  .rail-item.active .rail-num{ color:var(--brick); }
+  .rail-item.done .rail-num{ color:var(--sage); }
+  .rail-label{
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:1.4;
+  }
+  .rail-item.active .rail-label{ color:var(--ink); font-weight:500; }
+
+  .progressbar{
+    height:2px;
+    background:var(--line);
+    margin:16px 0 4px;
+    position:relative;
+  }
+  .progressbar > div{
+    height:100%;
+    background:var(--brick);
+    transition:width .3s ease;
+  }
+
+  .panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:34px 36px;
+    min-height:420px;
+    border-radius:12px;
+  }
+  .panel h2{
+    font-family:'New Kansas', sans-serif;
+    font-weight:600;
+    font-size:20px;
+    line-height:32px;
+    letter-spacing:-0.2px;
+    margin:0 0 6px;
+    color:var(--brick);
+  }
+  .panel .subnote{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:0 0 26px;
+    line-height:1.55;
+    max-width:560px;
+  }
+
+  .q{
+    margin-bottom:28px;
+  }
+  .q label{
+    display:block;
+    font-family:'Poppins', sans-serif;
+    font-size:15px;
+    font-weight:500;
+    letter-spacing:-0.3px;
+    color:var(--label-color);
+    margin-bottom:8px;
+    line-height:1.4;
+  }
+  .q .hint{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin:-2px 0 8px;
+  }
+  .q input[type=text], .q textarea{
+    width:100%;
+    border:1px solid var(--line);
+    background:#fff;
+    padding:10px 12px;
+    font-family:'Poppins', sans-serif;
+    font-size:14px;
+    color:var(--ink);
+    resize:vertical;
+    border-radius:4px;
+  }
+  .q textarea{ min-height:64px; }
+  .q input[type=text]:focus, .q textarea:focus{
+    outline:none;
+    border-color:var(--brick);
+  }
+  .q input[type=file]{
+    display:block;
+    padding:8px 0;
+    font-size:14px;
+    margin-top:8px;
+  }
+  .file-with-text{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .navrow{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:30px;
+  }
+  .btn{
+    font-family:'Poppins', sans-serif;
+    font-size:14px;
+    font-weight:500;
+    padding:11px 22px;
+    border:1px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    cursor:pointer;
+    border-radius:4px;
+  }
+  .btn:hover{ background:var(--ink); color:var(--paper); }
+  .btn.primary{
+    background:var(--brick);
+    border-color:var(--brick);
+    color:#fff;
+  }
+  .btn.primary:hover{ background:var(--brick-deep); border-color:var(--brick-deep); color:#fff; }
+  .btn:disabled{ opacity:0.35; cursor:default; pointer-events:none; }
+  .btn.ghost{ border-color:var(--line); color:var(--ink-soft); }
+  .btn.ghost:hover{ background:var(--line); color:var(--ink); }
+
+  .stepcount{ font-size:12.5px; color:var(--ink-soft); }
+
+  .review-block{
+    margin-bottom:40px;
+    padding-bottom:20px;
+    border-bottom:1px solid var(--line);
+  }
+  .review-block h3{
+    font-family:'New Kansas', sans-serif;
+    font-size:20px;
+    font-weight:600;
+    line-height:32px;
+    letter-spacing:-0.2px;
+    margin:0 0 20px;
+    color:var(--brick);
+  }
+  .review-row{
+    font-size:15px;
+    letter-spacing:-0.3px;
+    line-height:1.4;
+    margin-bottom:28px;
+  }
+  .review-row .rq{
+    font-family:'Poppins', sans-serif;
+    font-weight:500;
+    color:var(--label-color);
+    margin-bottom:8px;
+  }
+  .review-row .ra{
+    font-family:'Poppins', sans-serif;
+    font-weight:400;
+    font-style:italic;
+    color:var(--answer-color);
+    line-height:1.5;
+    white-space:pre-wrap;
+  }
+  .review-row .empty{ color:#B8AF9F; font-style:italic; }
+
+  .success{
+    text-align:center;
+    padding:50px 20px;
+  }
+  .success h2{
+    font-family:'New Kansas', sans-serif;
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .success p{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    max-width:420px;
+    margin:0 auto 24px;
+    line-height:1.6;
+  }
+
+  .ownerlink{
+    text-align:center;
+    margin-top:36px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .ownerlink button{
+    background:none;
+    border:none;
+    color:var(--brick);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:12.5px;
+    padding:0;
+    font-weight:500;
+  }
+
+  .admin-panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:34px 36px;
+    border-radius:12px;
+  }
+  .admin-panel h2{
+    font-family:'New Kansas', sans-serif;
+    font-weight:700;
+    font-size:24px;
+    margin:0;
+    color:var(--brick);
+  }
+  .subm-card{
+    border:1px solid var(--line);
+    background:#fff;
+    padding:20px 22px;
+    margin-bottom:16px;
+    border-radius:12px;
+  }
+  .subm-card .subm-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:12px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  .subm-card .subm-head b{
+    font-family:'New Kansas', sans-serif;
+    font-size:16px;
+    font-weight:700;
+  }
+  .subm-card .subm-head span{ font-size:12px; color:var(--ink-soft); }
+  .loadmsg{ font-size:13.5px; color:var(--ink-soft); text-align:center; padding:40px 0; }
+  .error-msg{ color:var(--brick); padding:12px; background:#fff; border:1px solid var(--brick); border-radius:4px; margin:10px 0; }
+  .btn-sm{
+    font-family:'Poppins', sans-serif;
+    font-size:12px;
+    font-weight:500;
+    padding:7px 14px;
+    border:1px solid var(--line);
+    background:#fff;
+    color:var(--ink-soft);
+    cursor:pointer;
+    border-radius:4px;
+    white-space:nowrap;
+  }
+  .btn-sm:hover{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  .admin-head-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:6px;
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.5.0/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.5.0/vfs_fonts.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="brandbar">
+    <div class="mark">
+      <img src="kidzink-logo.png" alt="Kidzink" style="height:35px;width:auto;">
+    </div>
+    <div class="meta">Help us serve you better</div>
+  </div>
+
+  <div class="hero" id="heroBlock">
+    <h1>Design Brief Questionnaire</h1>
+    <p>We'd love to hear from you about your experience, goals, and any feedback you have. Your responses help us better understand and serve your needs.</p>
+  </div>
+
+  <div class="layout" id="mainLayout">
+    <div class="rail" id="rail"></div>
+    <div id="panelArea"></div>
+  </div>
+
+  <div class="ownerlink">
+    <button onclick="promptAdminView()">Admin Access</button>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://wdubfgjqhupptoyvhdps.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkdWJmZ2pxaHVwcHRveXZoZHBzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMDc0MjgsImV4cCI6MjEwNDY4MzQyOH0.lVk4kwhjL2J79Ky2_nJ00oQ1_wrLa8y2_d5ezIJ1pNo';
+
+const SECTIONS = [
+  {
+    key: "project", title: "About You",
+    note: "Just so we know who we're hearing from.",
+    fields: [
+      {id:"respName", label:"Your name", type:"text"},
+      {id:"respRole", label:"Your role", type:"text", hint:"e.g. Co-Founder, Liaison, Business Lead"},
+      {id:"respEmail", label:"Email", type:"text"},
+      {id:"respDate", label:"Date", type:"text"}
+    ]
+  },
+  {
+    key: "vision", title: "Vision, Identity & What Makes This School Different",
+    note: "This section isn't asking you to have it all figured out. It's meant to help surface direction.",
+    fields: [
+      {id:"v1", label:"In one sentence, what is this school trying to prove that hasn't been done in Ethiopian/African education before?", type:"textarea"},
+      {id:"v2", label:"If a parent walks through the front gate for the first time, what's the one feeling you want them to leave with?", type:"textarea"},
+      {id:"v3", label:"What are the 2–3 things you want this school to be known for: the reasons a family picks you over another international school?", type:"textarea"},
+      {id:"v4", label:"Are there schools (anywhere in the world) whose atmosphere, values, or facilities you admire and want us to look at for inspiration?", type:"textarea"},
+      {id:"v5", label:"What values should the building itself communicate to students and staff?", type:"textarea", hint:"e.g. ambition, warmth, discipline, creativity, calm"},
+      {id:"v6", label:"Is there a working name, tagline, or identity direction yet, even informally? Should the design stay neutral so a brand can be added later, or should we help shape one?", type:"textarea"},
+      {id:"v7", label:"How should the school feel when users experience the space—do you envision the cultural/context being expressed in the spaces?", type:"textarea"}
+    ]
+  },
+  {
+    key: "curriculum", title: "Curriculum & Academic Direction",
+    note: "You mentioned this is still being worked through. These questions are meant to pin down what's decided vs. still open.",
+    fields: [
+      {id:"c1", label:"Is a curriculum framework decided (British, American, IB, Ethiopian national, a blend), shortlisted, or fully open?", type:"textarea"},
+      {id:"c2", label:"Are there pedagogical priorities already agreed (e.g. project-based learning, STEAM focus, strong arts/music, sports-led, bilingual instruction)?", type:"textarea"},
+      {id:"c3", label:"Are there any priorities that are firmly off the table, so we don't design toward them?", type:"textarea"},
+      {id:"c4", label:"Where does the design need maximum flexibility because the curriculum isn't locked yet?", type:"textarea", hint:"e.g. classroom configuration, lab specification, library format"},
+      {id:"c5", label:"Is there a curriculum/management partner who should be looped into design conversations directly?", type:"textarea"},
+      {id:"c6", label:"What are the Ethiopian government's minimum space and subject requirements the design must satisfy? Who can confirm these if not yet known?", type:"textarea"}
+    ]
+  },
+  {
+    key: "scale", title: "Scale, Age Groups & Sections",
+    note: "",
+    fields: [
+      {id:"s1", label:"Confirm current planned capacity: K–12, four sections per grade, ~1,000 students at maturity, max 20 per class, still accurate?", type:"textarea"},
+      {id:"s2", label:"Will the school open at full capacity, or grow into it over several years?", type:"textarea"},
+      {id:"s3", label:"Are Early Years (ages 3–7) numbers/sections different from the rest of the school?", type:"textarea"},
+      {id:"s4", label:"Should the Sixth Form / senior secondary feel distinct in identity, or stay fully integrated with the rest of the school?", type:"textarea"}
+    ]
+  },
+  {
+    key: "spaces", title: "Space-by-Space Requirements",
+    note: "Each of these maps to a block already built or planned on site.",
+    fields: [
+      {id:"sp1", label:"Kindergarten / Early Years: what does play-based, hands-on learning look like for your vision? Any pedagogical approach in mind (Reggio, Montessori-influenced, etc.), and how much rest/quiet space is needed?", type:"textarea"},
+      {id:"sp2", label:"General Classrooms: what mix of room types does the school need beyond standard subject classrooms, e.g. homerooms vs. rotating subject rooms, small-group breakout rooms, resource/quiet-study rooms?", type:"textarea"},
+      {id:"sp2b", label:"Should classrooms be flexible/reconfigurable, or fixed and subject-dedicated? Should the design language shift as students get older, or stay consistent K-12?", type:"textarea"},
+      {id:"sp3", label:"Science Labs & Workshop: separate labs per discipline or shared/flexible? Central or multiple prep rooms? Vision for the D&T/maker space (heavy fabrication vs. digital design)?", type:"textarea"},
+      {id:"sp3b", label:"For the art/maker area specifically: are sinks or wash stations needed, and how many? Is a kiln required? What activities will happen here per curriculum (drawing, painting, model making, sculpture, textiles, printing, pottery, digital art)? Do teachers prefer central tables, perimeter benching, or a mixed layout?", type:"textarea"},
+      {id:"sp4", label:"Library & Learning Commons: quiet study, digital hub, group collaboration, or all three zoned separately? Should it double as a school-wide commons?", type:"textarea"},
+      {id:"sp5", label:"Dining & Kitchen: the current kitchen is undersized for the dining program. What scale do you actually need (sittings, self-service vs. servery vs. grab-and-go)? Age-segregated dining or shared?", type:"textarea"},
+      {id:"sp5b", label:"Will food be cooked fully on-site by school staff, brought in by an external catering company, or a hybrid (e.g. hot food catered, snacks/drinks made on-site)? This changes how much kitchen and prep space is actually needed.", type:"textarea"},
+      {id:"sp6", label:"Auditorium: confirm intended capacity and primary uses. Any AV, acoustic, or staging needs beyond what's currently built?", type:"textarea"},
+      {id:"sp7", label:"Administration & Reception: open-plan, cellular, or mixed offices? Board room capacity and function? How many meeting rooms are needed?", type:"textarea"},
+      {id:"sp7b", label:"What should arrival/reception feel like: a formal welcome desk, a lounge-style waiting area, or both? What's the maximum number of visitors expected at once, and how many reception staff will typically be working there?", type:"textarea"},
+      {id:"sp7d", label:"What equipment does the reception desk need (computers, printers, phones, access-control, CCTV monitors, visitor badge printers), and are extra power/USB charging points or a digital screen required?", type:"textarea"},
+      {id:"sp7c", label:"Do you want dedicated breakout or lounge spaces for students and staff outside of classrooms, for downtime, informal group work, or socialising? Should these sit within each block, be centralised, or split by age group?", type:"textarea"},
+      {id:"sp8", label:"Wellbeing, Welfare & Inclusion: nurse/health office scale and staffing; where should quiet/sensory regulation spaces be distributed; desired toilet-separation approach; prayer room needs (who uses it, what capacity)?", type:"textarea"},
+      {id:"sp8b", label:"Could you share insights on the demographic of students—SEN, sensory rooms, etc.—so we can design appropriately inclusive spaces?", type:"textarea"},
+      {id:"sp9", label:"Sports, PE & Outdoor Landscape: what's the wishlist for the sports area and landscape (courts, covered/uncovered, terrace/roof provision)? Changing/shower needs? Outdoor learning zones?", type:"textarea"},
+      {id:"sp10", label:"Computer Science / Digital Labs: fixed desktop, BYOD, or trolley model? Should computing integrate physically with DT or science?", type:"textarea"},
+      {id:"sp11", label:"Are there any specialist subject requirements that we should be aware of?", type:"textarea"}
+    ]
+  },
+  {
+    key: "landscape", title: "Landscape & Outdoor Learning",
+    note: "This ties directly into the core concept: the school is shaped by the land as much as the land is shaped by the school, so classrooms open out to landscape and landscape feeds back into learning. These questions help us design that relationship properly, not just place a sports field next to a building.",
+    fields: [
+      {id:"la1", label:"In your own words, what should it feel like to move between a classroom and the landscape around it? Where should that boundary blur, and where should it stay defined?", type:"textarea"},
+      {id:"la2", label:"Which classrooms or year groups should open directly onto outdoor space, so outdoor learning isn't confined to breaks and PE?", type:"textarea"},
+      {id:"la3", label:"Kindergarten outdoor play: are you picturing natural/sensory play (sand, water, planting, loose parts), structured play equipment, or a mix of both? What's the maximum number of children expected to use the area at once?", type:"textarea"},
+      {id:"la3b", label:"Are there any existing tricycles, furniture, or play equipment on site that should be retained and incorporated into the new design, rather than replaced?", type:"textarea"},
+      {id:"la4", label:"For junior/younger students, what's needed beyond the KG play area: a multipurpose court (basketball, netball), a smaller games court, or something else?", type:"textarea"},
+      {id:"la5", label:"For the main pitch, what should it be built to serve: football, rugby, athletics, or a mix? Full-size or scaled to fit the plot?", type:"textarea", hint:"the current site plan shows a running track and a full pitch; confirm if that scope still holds"},
+      {id:"la6", label:"Should sports and play provision scale by age group (smaller courts near KG and junior blocks, the bigger pitch near senior years), or should it stay centralised in one zone for the whole school?", type:"textarea"},
+      {id:"la7", label:"Beyond sport, what else should the landscape support: gardens, an outdoor amphitheatre, outdoor classrooms, quiet/reflection gardens, growing spaces?", type:"textarea"},
+      {id:"la8", label:"Are there existing landscape elements on site worth preserving or designing around, such as mature trees or the site's natural slope?", type:"textarea"},
+      {id:"la9", label:"How should movement between buildings and landscape work: covered walkways, direct classroom-to-courtyard access, a central spine connecting everything?", type:"textarea"},
+      {id:"la10", label:"Any climate considerations specific to Addis Ababa the landscape needs to solve for, such as shade, rain drainage, or seasonal use?", type:"textarea"}
+    ]
+  },
+  {
+    key: "existing", title: "Existing Architecture: What to Keep, What to Fix",
+    note: "Specific to Gurd Shola since the base building is already ~80% complete.",
+    fields: [
+      {id:"e1", label:"Beyond the kitchen and toilet issues already flagged, what else in the current layout doesn't feel school-appropriate yet?", type:"textarea"},
+      {id:"e2", label:"You mentioned liking the brick wall material. Are there other existing choices you want to keep, or is everything open for review?", type:"textarea"},
+      {id:"e3", label:"Are there specific blocks where structural changes are acceptable, vs. blocks that are essentially fixed (interiors + FF&E only)?", type:"textarea"},
+      {id:"e4", label:"Has a meeting with the local architect been scheduled, or should Kidzink coordinate that directly?", type:"textarea"}
+    ]
+  },
+  {
+    key: "brand", title: "Brand & Visual Identity",
+    note: "Help us understand your branding direction and visual identity needs.",
+    fields: [
+      {id:"br1", label:"Do you currently have a brand colour or colour palette for the school?", type:"textarea"},
+      {id:"br2", label:"If yes, what colours do you use?", type:"textarea"},
+      {id:"br3", label:"Do you already have a logo and specific logo style that needs to be retained?", type:"text", hint:"If yes, please share it with us. You can also upload a logo file (PNG, JPG, PDF, max 5MB)", file:true},
+      {id:"br4", label:"Are there any colours, symbols, patterns, or visual elements that are important to the school and should be included?", type:"textarea"},
+      {id:"br5", label:"Would you be open to us proposing a new colour palette and visual identity for the school?", type:"textarea"},
+      {id:"br6", label:"Would you like us to develop a complete branding direction, including the logo, colours, typography, wayfinding, signage, uniforms, and other visual elements?", type:"textarea"},
+      {id:"br7", label:"Are there any existing branding guidelines or requirements that we need to follow?", type:"textarea"}
+    ]
+  },
+  {
+    key: "furniture", title: "Furniture, Materials & Inclusive Design",
+    note: "",
+    fields: [
+      {id:"f1", label:"Any preference for modular/flexible furniture across the board, or specific to certain space types?", type:"textarea"},
+      {id:"f2", label:"Are there space types where you're willing to spend more on durability, and others where you want to stay leaner?", type:"textarea"},
+      {id:"f3", label:"Local sourcing vs. imported: any existing supplier relationships in Ethiopia we should know about, or is this fully open?", type:"textarea"},
+      {id:"f4", label:"Acoustics: any specific space where this is a concern (open-plan classrooms, dining hall, auditorium)?", type:"textarea"}
+    ]
+  },
+  {
+    key: "budget", title: "Budget & Timeline",
+    note: "",
+    fields: [
+      {id:"b1", label:"Confirm target opening: 2027–2028 academic year, structural completion February 2027, still accurate?", type:"textarea"},
+      {id:"b2", label:"Is a phased opening planned (e.g. lower grades first), or does everything need to be ready simultaneously?", type:"textarea"},
+      {id:"b3", label:"Is there a fixed budget ceiling, or would you prefer tiered options (value-conscious / mid / premium) by space type?", type:"textarea"},
+      {id:"b4", label:"Any hard milestone dates the design programme needs to hit?", type:"textarea"}
+    ]
+  },
+  {
+    key: "longterm", title: "Long-Term Vision",
+    note: "",
+    fields: [
+      {id:"l1", label:"How do you see the school evolving in 5–10 years? Is 1,000 students and four sections per grade the ceiling, or is there room to grow further?", type:"textarea"},
+      {id:"l2", label:"Any appetite for future phases (boarding, additional facilities, plot expansion) the current design should anticipate?", type:"textarea"}
+    ]
+  }
+];
+
+let current = 0;
+let answers = {};
+let adminPassword = 'kidzink2024';
+
+function renderRail(){
+  const rail = document.getElementById('rail');
+  let html = '';
+  SECTIONS.forEach((s,i)=>{
+    const cls = i===current ? 'active' : (i<current ? 'done' : '');
+    html += `<div class="rail-item ${cls}" onclick="jumpTo(${i})">
+      <div class="rail-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="rail-label">${s.title}</div>
+    </div>`;
+  });
+  html += `<div class="progressbar"><div style="width:${(current/(SECTIONS.length))*100}%"></div></div>`;
+  rail.innerHTML = html;
+}
+
+function jumpTo(i){ current = i; renderAll(); }
+
+function renderPanel(){
+  const area = document.getElementById('panelArea');
+  const s = SECTIONS[current];
+  let fieldsHtml = '';
+  s.fields.forEach(f=>{
+    const val = answers[f.id] || '';
+    fieldsHtml += `<div class="q">
+      <label for="${f.id}">${f.label}</label>
+      ${f.hint ? `<div class="hint">${f.hint}</div>` : ''}`;
+
+    if(f.file){
+      fieldsHtml += `<div class="file-with-text">
+        <input type="text" id="${f.id}" placeholder="Describe the logo or paste details..." value="${val}" oninput="answers['${f.id}']=this.value" style="flex:1;">
+        <input type="file" id="${f.id}_file" accept=".png,.jpg,.jpeg,.pdf,.gif" onchange="handleFileUpload('${f.id}', this)">
+      </div>`;
+    } else if(f.type==='textarea'){
+      fieldsHtml += `<textarea id="${f.id}" oninput="answers['${f.id}']=this.value">${val}</textarea>`;
+    } else {
+      fieldsHtml += `<input type="text" id="${f.id}" value="${val}" oninput="answers['${f.id}']=this.value">`;
+    }
+    fieldsHtml += `</div>`;
+  });
+
+  area.innerHTML = `
+    <div class="panel">
+      <h2>${s.title}</h2>
+      ${s.note ? `<p class="subnote">${s.note}</p>` : ''}
+      ${fieldsHtml}
+      <div class="navrow">
+        <button class="btn ghost" onclick="prevStep()" ${current===0?'disabled':''}>Back</button>
+        <span class="stepcount">Section ${current+1} of ${SECTIONS.length}</span>
+        <button class="btn primary" onclick="nextStep()">${current===SECTIONS.length-1 ? 'Review & Send' : 'Next'}</button>
+      </div>
+    </div>
+  `;
+}
+
+function nextStep(){
+  if(current < SECTIONS.length - 1){
+    current++;
+    renderAll();
+  } else {
+    renderReview();
+  }
+}
+
+function prevStep(){
+  if(current > 0){ current--; renderAll(); }
+}
+
+function renderAll(){
+  renderRail();
+  renderPanel();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function renderReview(){
+  const area = document.getElementById('panelArea');
+  document.getElementById('rail').innerHTML = '';
+  let html = `<div class="panel">
+    <h2>Review your answers</h2>
+    <p class="subnote">Take a look before sending — you can go back and edit anything.</p>`;
+  SECTIONS.forEach(s=>{
+    html += `<div class="review-block"><h3>${s.title}</h3>`;
+    s.fields.forEach(f=>{
+      const val = answers[f.id];
+      html += `<div class="review-row">
+        <div class="rq">${f.label}</div>
+        <div class="ra ${!val ? 'empty' : ''}">${val ? val : 'No response'}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  html += `
+    <div class="navrow">
+      <button class="btn ghost" onclick="renderAll()">Back to edit</button>
+      <span></span>
+      <button class="btn primary" onclick="submitForm()">Send</button>
+    </div>
+  </div>`;
+  area.innerHTML = html;
+}
+
+function handleFileUpload(fieldId, input){
+  const file = input.files[0];
+  if(!file) return;
+
+  if(file.size > 5 * 1024 * 1024){
+    alert('File is too large. Maximum file size is 5MB.');
+    input.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const base64 = e.target.result;
+    answers[fieldId + '_file'] = {
+      name: file.name,
+      type: file.type,
+      size: file.size,
+      data: base64
+    };
+  };
+  reader.readAsDataURL(file);
+}
+
+async function submitForm(){
+  const submission = {
+    respondent_name: answers.respName || 'Unnamed',
+    respondent_email: answers.respEmail || '',
+    respondent_role: answers.respRole || '',
+    respondent_date: answers.respDate || '',
+    answers: answers
+  };
+
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/design_brief_submissions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      },
+      body: JSON.stringify(submission)
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to submit form');
+    }
+
+    // Send email notifications to team members
+    try {
+      await sendNotificationEmails(submission);
+    } catch(emailError) {
+      console.warn('Email notification failed (non-blocking):', emailError);
+      // Don't fail the submission if email fails
+    }
+
+    showSuccess();
+  } catch(error) {
+    console.error('Error:', error);
+    alert('Error submitting form: ' + error.message);
+  }
+}
+
+async function sendNotificationEmails(submission){
+  const teamEmails = [
+    'labeeb@kidzink.com',
+    'fuad@kidzink.com',
+    'eno@kidzink.com',
+    'james@kidzink.com',
+    'zarveen@kidzink.com',
+    'suhailtarwalla@kidzink.com',
+    'ashwinsudhakaran@kidzink.com'
+  ];
+
+  // Try to use Supabase Edge Function for email sending
+  // The function should be deployed at: https://<project>.supabase.co/functions/v1/send-email
+  const emailPayload = {
+    to: teamEmails,
+    respondent_name: submission.respondent_name,
+    respondent_email: submission.respondent_email,
+    respondent_role: submission.respondent_role,
+    submitted_at: new Date().toISOString()
+  };
+
+  try {
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/send-email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      },
+      body: JSON.stringify(emailPayload)
+    });
+
+    if (!response.ok) {
+      console.warn('Email service returned error:', response.status);
+    }
+  } catch(err) {
+    console.warn('Could not reach email service. This is non-critical.', err);
+  }
+}
+
+function showSuccess(){
+  document.getElementById('rail').innerHTML = '';
+  document.getElementById('panelArea').innerHTML = `
+    <div class="panel success">
+      <h2>Thank you.</h2>
+      <p>Your feedback has been submitted successfully. We appreciate you taking the time to share your thoughts with us. Our team will review your responses and get back to you soon.</p>
+    </div>
+  `;
+}
+
+function promptAdminView(){
+  const pwd = prompt('Enter admin password:');
+  if(pwd === adminPassword){
+    toggleAdminView();
+  } else if(pwd !== null){
+    alert('Incorrect password');
+  }
+}
+
+async function toggleAdminView(){
+  let adminViewOpen = true;
+  const btn = document.querySelector('.ownerlink button');
+  if(adminViewOpen){
+    btn.textContent = 'Back to questionnaire';
+    document.getElementById('heroBlock').style.display = 'none';
+    const area = document.getElementById('panelArea');
+    document.getElementById('rail').innerHTML = '';
+    area.innerHTML = `<div class="loadmsg">Loading responses…</div>`;
+
+    try {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/design_brief_submissions?order=submitted_at.desc`, {
+        method: 'GET',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        }
+      });
+
+      console.log('Fetch response status:', response.status);
+      console.log('Fetch response ok:', response.ok);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Fetch error response:', errorText);
+        throw new Error(`Failed to load responses: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Fetched data:', data);
+      console.log('Data length:', data ? data.length : 'null');
+
+      window.allSubmissions = data;
+
+      if(!data || data.length === 0){
+        area.innerHTML = `<div class="loadmsg">No responses submitted yet.</div>`;
+        return;
+      }
+
+      let html = `<div class="admin-panel">
+        <div class="admin-head-row">
+          <div>
+            <h2 style="margin:0;">Client Responses</h2>
+            <p class="subnote" style="margin:4px 0 0;">Total responses: ${data.length}</p>
+          </div>
+          <button class="btn-sm" onclick="downloadAllPDF()">⬇ Download All as PDF</button>
+        </div>`;
+      data.forEach(entry=>{
+        html += `<div class="subm-card">
+          <div class="subm-head">
+            <div>
+              <b>${entry.respondent_name || 'Anonymous'}</b><br>
+              <span>${new Date(entry.submitted_at).toLocaleString()} ${entry.respondent_email ? '· ' + entry.respondent_email : ''}</span>
+            </div>
+            <button class="btn-sm" onclick="downloadSubmissionPDF('${entry.id}')">⬇ Download PDF</button>
+          </div>`;
+
+        if(entry.respondent_role){
+          html += `<div style="margin-bottom:12px;"><strong style="color:var(--ink-soft);">Role:</strong> ${entry.respondent_role}</div>`;
+        }
+        if(entry.respondent_date){
+          html += `<div style="margin-bottom:12px;"><strong style="color:var(--ink-soft);">Date:</strong> ${entry.respondent_date}</div>`;
+        }
+
+        SECTIONS.forEach(s=>{
+          html += `<div style="margin-bottom:14px;"><div style="font-family:'Poppins',sans-serif;font-size:14px;color:var(--brick-deep);margin-bottom:6px;font-weight:500;">${s.title}</div>`;
+          s.fields.forEach(f=>{
+            // Parse answers if it's a string
+            let answers = entry.answers;
+            if(typeof answers === 'string'){
+              try {
+                answers = JSON.parse(answers);
+              } catch(e) {
+                answers = {};
+              }
+            }
+            let val = answers ? answers[f.id] : '';
+            let displayVal = 'No response';
+
+            if(val){
+              // Check if it's a file object (has name property)
+              if(typeof val === 'object' && val.name){
+                displayVal = `📎 ${val.name} (${(val.size / 1024).toFixed(1)}KB)`;
+              } else if(typeof val === 'object'){
+                displayVal = JSON.stringify(val);
+              } else {
+                displayVal = val;
+              }
+            }
+
+            html += `<div class="review-row">
+              <div class="rq">${f.label}</div>
+              <div class="ra ${!val ? 'empty' : ''}">${displayVal}</div>
+            </div>`;
+          });
+          html += `</div>`;
+        });
+        html += `</div>`;
+      });
+      html += `</div>`;
+      area.innerHTML = html;
+    } catch(error) {
+      area.innerHTML = `<div class="error-msg">Error loading responses: ${error.message}</div>`;
+    }
+  }
+}
+
+// ---------- PDF EXPORT (matches Figma document template exactly: colors, type, spacing) ----------
+function getParsedAnswers(entry){
+  let answers = entry.answers;
+  if(typeof answers === 'string'){
+    try { answers = JSON.parse(answers); } catch(e) { answers = {}; }
+  }
+  return answers || {};
+}
+
+function safeFileName(name){
+  return (name || 'response').toString().replace(/[^a-z0-9]+/gi, '_').replace(/^_+|_+$/g, '').slice(0, 60);
+}
+
+function escapePdfHtml(str){
+  return String(str == null ? '' : str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function formatAnswerForPdf(val){
+  if(val === undefined || val === null || val === ''){ return 'No response'; }
+  if(typeof val === 'object' && val.name){
+    return `Attached file: ${val.name} (${(val.size / 1024).toFixed(1)}KB)`;
+  }
+  if(typeof val === 'object'){ return JSON.stringify(val); }
+  return String(val);
+}
+
+
+function buildPdfDefinition(entry) {
+  const answers = getParsedAnswers(entry);
+  const colors = {
+    brick: '#e43e2f',
+    ink: '#404040',
+    ink_soft: '#5B564F',
+    line: '#DDD3C2',
+    bg: '#F5F2EC'
+  };
+
+  const content = [];
+
+  // Title
+  content.push({
+    text: 'Design Brief Questionnaire',
+    style: 'title',
+    margin: [0, 0, 20, 0]
+  });
+
+  // Metadata section
+  content.push({
+    columns: [
+      {
+        stack: [
+          { text: 'Respondent', style: 'metaLabel' },
+          { text: entry.respondent_name || '—', style: 'metaValue' }
+        ],
+        width: '25%'
+      },
+      {
+        stack: [
+          { text: 'Email', style: 'metaLabel' },
+          { text: entry.respondent_email || '—', style: 'metaValue' }
+        ],
+        width: '25%'
+      },
+      {
+        stack: [
+          { text: 'Role', style: 'metaLabel' },
+          { text: entry.respondent_role || '—', style: 'metaValue' }
+        ],
+        width: '25%'
+      },
+      {
+        stack: [
+          { text: 'Submitted', style: 'metaLabel' },
+          { 
+            text: entry.submitted_at ? new Date(entry.submitted_at).toLocaleString() : '—',
+            style: 'metaValue'
+          }
+        ],
+        width: '25%'
+      }
+    ],
+    margin: [0, 0, 0, 20]
+  });
+
+  // Divider
+  content.push({
+    canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 1, lineColor: colors.line }],
+    margin: [0, 0, 0, 20]
+  });
+
+  // Sections
+  SECTIONS.forEach((section, sectionIdx) => {
+    // Section heading
+    content.push({
+      text: section.title,
+      style: 'sectionHeading',
+      margin: [0, sectionIdx > 0 ? 15 : 0, 0, 12]
+    });
+
+    // Section fields
+    const fields = [];
+    section.fields.forEach(field => {
+      const answer = formatAnswerForPdf(answers[field.id]) || '(No answer provided)';
+      
+      fields.push({
+        stack: [
+          {
+            text: field.label,
+            style: 'fieldLabel'
+          },
+          {
+            text: answer,
+            style: 'fieldAnswer',
+            margin: [10, 4, 0, 0]
+          }
+        ],
+        margin: [0, 0, 0, 12]
+      });
+    });
+
+    content.push({
+      stack: fields,
+      margin: [0, 0, 0, 0]
+    });
+  });
+
+  // PDF definition
+  return {
+    pageSize: 'A4',
+    pageMargins: [40, 40, 40, 40],
+    content: content,
+    styles: {
+      title: {
+        fontFamily: 'New Kansas',
+        fontSize: 24,
+        bold: true,
+        color: colors.brick
+      },
+      sectionHeading: {
+        fontFamily: 'Poppins',
+        fontSize: 14,
+        bold: true,
+        color: colors.brick
+      },
+      fieldLabel: {
+        fontFamily: 'Poppins',
+        fontSize: 11,
+        bold: true,
+        color: colors.ink
+      },
+      fieldAnswer: {
+        fontFamily: 'Poppins',
+        fontSize: 10,
+        color: colors.ink_soft,
+        lineHeight: 1.5
+      },
+      metaLabel: {
+        fontFamily: 'Poppins',
+        fontSize: 9,
+        bold: true,
+        color: colors.ink,
+        margin: [0, 0, 0, 3]
+      },
+      metaValue: {
+        fontFamily: 'Poppins',
+        fontSize: 10,
+        color: colors.ink_soft
+      }
+    },
+    defaultStyle: {
+      fontFamily: 'Poppins',
+      fontSize: 10,
+      color: colors.ink
+    }
+  };
+}
+
+function downloadSubmissionPDF(id) {
+  try {
+    const entry = (window.allSubmissions || []).find(e => String(e.id) === String(id));
+    if(!entry) { alert('Could not find that submission.'); return; }
+
+    console.log('PDF: Building definition for', entry.respondent_name);
+    const docDefinition = buildPdfDefinition(entry);
+
+    if(!window.pdfMake) {
+      alert('PDF library (pdfMake) failed to load.');
+      return;
+    }
+
+    console.log('PDF: Creating document...');
+    const pdf = pdfMake.createPdf(docDefinition);
+    
+    console.log('PDF: Downloading...');
+    pdf.download(`${safeFileName(entry.respondent_name)}_design_brief.pdf`);
+    console.log('PDF: Download complete');
+  } catch(err) {
+    console.error('PDF generation failed:', err);
+    alert('PDF Error: ' + err.message);
+  }
+}
+
+function downloadAllPDF() {
+  try {
+    const data = window.allSubmissions || [];
+    if(data.length === 0) { alert('No responses to download yet.'); return; }
+
+    if(!window.pdfMake) {
+      alert('PDF library (pdfMake) failed to load.');
+      return;
+    }
+
+    console.log('PDF: Building batch PDF with', data.length, 'responses');
+    
+    // Combine all submissions into one PDF with page breaks
+    const content = [];
+    data.forEach((entry, idx) => {
+      if(idx > 0) {
+        content.push({ text: '', pageBreak: 'before' });
+      }
+      const docDef = buildPdfDefinition(entry);
+      content.push(...docDef.content);
+    });
+
+    const docDefinition = {
+      pageSize: 'A4',
+      pageMargins: [40, 40, 40, 40],
+      content: content,
+      styles: buildPdfDefinition(data[0]).styles,
+      defaultStyle: {
+        fontFamily: 'Poppins',
+        fontSize: 10,
+        color: '#404040'
+      }
+    };
+
+    console.log('PDF: Creating batch document...');
+    const pdf = pdfMake.createPdf(docDefinition);
+    
+    console.log('PDF: Downloading batch...');
+    pdf.download(`all_design_brief_responses_${new Date().toISOString().slice(0,10)}.pdf`);
+    console.log('PDF: Batch download complete');
+  } catch(err) {
+    console.error('PDF batch generation failed:', err);
+    alert('PDF Error: ' + err.message);
+  }
+}
+
+renderAll();
+</script>
+</body>
+</html>
