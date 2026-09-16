@@ -1,8 +1,4 @@
 {
   "buildCommand": "",
-  "outputDirectory": ".",
-  "env": {
-    "SUPABASE_URL": "https://wdubfgjqhupptoyvhdps.supabase.co",
-    "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkdWJmZ2pxaHVwcHRveXZoZHBzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMDc0MjgsImV4cCI6MjEwNDY4MzQyOH0.lVk4kwhjL2J79Ky2_nJ00oQ1_wrLa8y2_d5ezIJ1pNo"
-  }
+  "outputDirectory": "."
 }
