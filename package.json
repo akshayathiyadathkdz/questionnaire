@@ -1,0 +1,25 @@
+{
+  "name": "questionnaire",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshayathiyadathkdz/questionnaire.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/akshayathiyadathkdz/questionnaire/issues"
+  },
+  "homepage": "https://github.com/akshayathiyadathkdz/questionnaire#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "pdfmake": "^0.3.11"
+  }
+}
